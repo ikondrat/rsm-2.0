@@ -1,12 +1,24 @@
 [package]
-name = "backend"
+name = "rsm_backend"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-diesel = { version = "2.2.0", features = ["postgres"] }
+diesel = { version = "2.2.0", features = ["postgres", "uuid", "chrono"] }
+uuid = { version = "1.8.0", features = ["v4", "serde"] }
 # build libpq and openssl as part of the build process
 # uncomment these lines if you run into setup issues
 # pq-sys = { version = "0.6", features = ["bundled"] }
 # openssl-sys = { version = "0.9.100", features = ["vendored"] } 
 dotenvy = "0.15"
+chrono = { version = "0.4.39", features = ["serde"] }
+
+
+serde = { version = "1.0.217", features = ["derive"] }
+serde_json = "1.0.135"
+
+tokio-pg-mapper = "0.2.0"
+tokio-pg-mapper-derive = "0.2.0"
+tokio-postgres = {version="0.7.12", features=["with-uuid-1", "with-chrono-0_4", "with-geo-types-0_7"]}
+tokio = { version = "1.43.0", features = ["full"] }
+tokio-macros = "2.5.0"

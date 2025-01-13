@@ -13,6 +13,20 @@ pub fn establish_connection() -> PgConnection {
         .unwrap_or_else(|_| panic!("Error connecting to {}", database_url))
 }
 
+use self::models::{NewPost, Post};
+
+pub fn create_post(conn: &mut PgConnection, title: &str, body: &str) -> Post {
+    use crate::schema::posts;
+
+    let new_post = NewPost { title, body };
+
+    diesel::insert_into(posts::table)
+        .values(&new_post)
+        .returning(Post::as_returning())
+        .get_result(conn)
+        .expect("Error saving new post")
+}
+
 pub fn add(left: u64, right: u64) -> u64 {
     left + right
 }
